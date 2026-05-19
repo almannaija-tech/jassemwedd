@@ -22,23 +22,26 @@
     #envelope-screen {
       position:fixed; top:0; left:0; width:100%; height:100%;
       z-index:9999; cursor:pointer;
+      background:#1a0e08;
+      display:flex; align-items:center; justify-content:center;
       transition: transform 1.2s cubic-bezier(0.4,0,0.2,1), opacity 0.8s ease;
     }
     #envelope-screen.open { transform:translateY(-110%); opacity:0; pointer-events:none; }
     .envelope-img {
-      width:100%; height:100%;
-      object-fit:cover;
+      max-width:min(480px,90vw);
+      max-height:95vh;
+      object-fit:contain;
       display:block;
     }
     .envelope-overlay {
       position:absolute; top:0; left:0; width:100%; height:100%;
       display:flex; flex-direction:column; align-items:center; justify-content:center;
-      gap:16px;
+      pointer-events:none;
     }
     .tap-hint {
-      position:absolute; bottom:8%;
+      position:absolute; bottom:6%;
       font-family:'Amiri',serif;
-      color: var(--brown-mid);
+      color:rgba(247,242,234,0.75);
       font-size:clamp(0.9rem,3vw,1.2rem);
       animation:pulse 2s infinite;
       letter-spacing:0.1em;
@@ -48,78 +51,54 @@
     /* MAIN */
     #main-content { opacity:0; transition:opacity 0.8s ease 0.3s; min-height:100vh; }
     #main-content.visible { opacity:1; }
-
-    /* HERO */
-      .hero {
-          width: 100%;
-          min-height: 100vh;
-          background: url('https://almannaija-tech.github.io/jassemwedd/env.jpeg') center/cover no-repeat;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          position: relative;
-          padding: 40px 20px;
-      }
-    .hero::before { content:''; position:absolute; inset:0; background:rgba(15,5,0,0.35); }
-    .arch-card {
-      position:relative; z-index:1;
-      width:min(420px,90vw);
-      background:rgba(247,242,234,0.93);
-      border:2.5px solid var(--terracotta);
-      border-radius:50% 50% 8px 8px / 30% 30% 8px 8px;
-      padding:50px 30px 40px; text-align:center;
-      box-shadow:0 8px 40px rgba(0,0,0,0.4);
+    /* COUNTDOWN */
+    .countdown-section { width:min(420px,90vw); margin:20px auto; }
+    .countdown-wrapper { position:relative; }
+    .countdown-bg { width:100%; display:block; border-radius:12px; }
+    .cd-overlay {
+      position:absolute;
+      left:7%; right:7%;
+      top:46%;
+      display:flex;
+      gap:clamp(4px,2vw,10px);
     }
-    .arch-card::before {
-      content:''; position:absolute; top:8px; left:8px; right:8px; bottom:8px;
-      border-radius:50% 50% 4px 4px / 30% 30% 4px 4px;
-      border:1px solid var(--terracotta-pale); pointer-events:none;
+    .cd-unit { flex:1; text-align:center; }
+    .cd-box {
+      background:rgba(247,242,234,0.18);
+      border:1px solid rgba(125,54,38,0.5);
+      border-radius:8px;
+      padding:clamp(6px,2vw,10px) 4px;
     }
-    .arch-monogram { font-family:'Scheherazade New',serif; font-size:clamp(2.5rem,8vw,4rem); color:var(--terracotta); line-height:1; margin-bottom:16px; }
-    .arch-tashref { font-size:clamp(0.8rem,2.5vw,1rem); color:var(--brown-mid); margin-bottom:10px; }
-    .arch-mothers { display:flex; justify-content:space-between; gap:10px; margin-bottom:6px; }
-    .arch-mother-block { flex:1; text-align:center; }
-    .arch-mother-title { font-size:clamp(0.7rem,2vw,0.85rem); color:var(--terracotta); font-weight:bold; }
-    .arch-mother-name { font-size:clamp(0.65rem,1.8vw,0.8rem); color:var(--brown-dark); line-height:1.4; }
-    .arch-invites { font-size:clamp(0.75rem,2vw,0.95rem); color:var(--brown-mid); margin:14px 0; }
-    .arch-couple { display:flex; justify-content:center; align-items:center; gap:12px; margin:10px 0; }
-    .arch-name { font-family:'Scheherazade New',serif; font-size:clamp(2rem,7vw,3.2rem); color:var(--terracotta); font-weight:900; line-height:1; }
-    .arch-wa { font-family:'Scheherazade New',serif; font-size:clamp(1.5rem,5vw,2.5rem); color:var(--brown-mid); }
-    .arch-lineage { display:flex; justify-content:space-between; margin:4px 0 8px; }
-    .arch-lineage span { font-size:clamp(0.65rem,1.8vw,0.8rem); color:var(--brown-dark); }
-    .arch-mashia { font-size:clamp(0.75rem,2vw,0.9rem); color:var(--brown-mid); margin:10px 0 16px; }
-    .arch-details { display:flex; justify-content:space-around; border-top:1px solid var(--terracotta-pale); padding-top:14px; }
-    .arch-detail-item { text-align:center; }
-    .arch-detail-icon { font-size:clamp(1.2rem,3vw,1.6rem); display:block; margin-bottom:4px; color:var(--terracotta); }
-    .arch-detail-label { font-size:clamp(0.65rem,1.8vw,0.82rem); color:var(--brown-dark); line-height:1.4; }
+    .cd-num {
+      font-family:'Scheherazade New',serif;
+      font-size:clamp(1.3rem,5vw,2.2rem);
+      font-weight:900;
+      color:#f7f2ea;
+      display:block;
+      line-height:1;
+    }
+    .cd-label {
+      font-family:'Amiri',serif;
+      font-size:clamp(0.65rem,2vw,0.8rem);
+      color:rgba(247,242,234,0.85);
+      display:block;
+      margin-top:5px;
+    }
 
     /* SECTIONS */
     .section { padding:60px 20px; text-align:center; }
     .section-title { font-family:'Scheherazade New',serif; font-size:clamp(1.6rem,5vw,2.4rem); color:var(--terracotta); margin-bottom:30px; }
     .section-title::after { content:''; display:block; width:80px; height:2px; background:var(--terracotta-pale); margin:8px auto 0; }
 
-    /* COUNTDOWN */
-    .countdown-section { position:relative; width:100%; overflow:hidden; }
-    .countdown-bg { width:100%; display:block; }
-    .cd-num {
-      font-family:Georgia,serif;
-      font-size:clamp(1.4rem,5.5vw,3.4rem);
-      color:#5C2E1A;
-      font-weight:bold;
-      position:absolute;
-      transform:translate(-50%,-50%);
-      white-space:nowrap;
-    }
-
-    /* SCHEDULE */
-    .schedule-section { background:var(--cream); }
-    .timeline { max-width:400px; margin:0 auto; position:relative; }
+      /* SCHEDULE */
+      .schedule-section { background:var(--brown-dark); }
+      .timeline { max-width:400px; margin:0 auto; position:relative; }
     .timeline::before { content:''; position:absolute; left:50%; top:0; bottom:0; width:2px; background:linear-gradient(to bottom,transparent,var(--terracotta-pale),transparent); transform:translateX(-50%); }
     .timeline-item { display:flex; align-items:center; gap:16px; margin-bottom:28px; }
     .timeline-item:nth-child(odd) { flex-direction:row-reverse; }
-    .timeline-time { flex:1; text-align:center; font-family:'Amiri',serif; font-size:clamp(1.1rem,3.5vw,1.4rem); color:var(--terracotta); font-weight:bold; direction:ltr; }
+    .timeline-time { flex:1; text-align:center; font-family:'Amiri',serif; font-size:clamp(1.1rem,3.5vw,1.4rem); color:var(--terracotta-pale); font-weight:bold; direction:ltr; }
     .timeline-dot { width:14px; height:14px; background:var(--terracotta); border-radius:50%; border:3px solid var(--cream); box-shadow:0 0 0 2px var(--terracotta-pale); flex-shrink:0; z-index:1; }
-    .timeline-event { flex:1; text-align:center; font-family:'Amiri',serif; font-size:clamp(0.95rem,3vw,1.15rem); color:var(--brown-dark); }
+    .timeline-event { flex:1; text-align:center; font-family:'Amiri',serif; font-size:clamp(0.95rem,3vw,1.15rem); color:var(--cream); }
 
     /* LOCATION */
     .location-section { background:var(--cream-dark); padding:40px 20px; text-align:center; }
@@ -170,130 +149,108 @@
   </div>
 </div>
 
+
 <!-- MAIN -->
 <div id="main-content">
+    <!-- INV -->
+    <section style="width:100%; min-height:100vh; background:#1a0e08; display:flex; align-items:center; justify-content:center;">
+      <img src="https://almannaija-tech.github.io/jassemwedd/inv.jpeg"
+           style="max-width:min(480px,90vw); max-height:95vh; object-fit:contain; display:block;" />
+    </section>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="arch-card reveal">
-      <p class="arch-tashref">تتشرف</p>
-      <div class="arch-mothers">
-        <div class="arch-mother-block">
-          <div class="arch-mother-title">السيدة</div>
-          <div class="arch-mother-name">دانة بنت علي بن<br>صالح المناعي</div>
-        </div>
-        <div class="arch-mother-block">
-          <div class="arch-mother-title">السيدة</div>
-          <div class="arch-mother-name">نادية بنت حمد بن<br>عبدالرحمن آل نجم المناعي</div>
-        </div>
-      </div>
-      <p class="arch-invites">بدعوتكم لحضور حفل زفاف نجليهما</p>
-      <div class="arch-couple">
-        <div class="arch-name">جاسم</div>
-        <div class="arch-wa">و</div>
-        <div class="arch-name">الجوهرة</div>
-      </div>
-      <div class="arch-lineage">
-        <span>بن حمد بن محمد المناعي</span>
-        <span>بنت سعد بن حسين العجيل</span>
-      </div>
-      <p class="arch-mashia">وذلك بمشيئة الله تعالى</p>
-      <div class="arch-details">
-        <div class="arch-detail-item">
-          <span class="arch-detail-icon">🕐</span>
-          <div class="arch-detail-label">الساعة<br>الثامنة</div>
-        </div>
-        <div class="arch-detail-item">
-          <span class="arch-detail-icon">📅</span>
-          <div class="arch-detail-label">يوم الجمعة<br>١٢/٦/٢٠٢٦م</div>
-        </div>
-        <div class="arch-detail-item">
-          <span class="arch-detail-icon">📍</span>
-          <div class="arch-detail-label">فندق ريكسوس<br>القطيفان</div>
+
+
+    <!-- COUNTDOWN -->
+    <section class="countdown-section">
+      <div class="countdown-wrapper">
+        <img class="countdown-bg" src="https://almannaija-tech.github.io/jassemwedd/countdown1.jpeg" alt="العد التنازلي" />
+        <div class="cd-overlay">
+          <div class="cd-unit">
+            <div class="cd-box"><span class="cd-num" id="cd-days">٠٠</span></div>
+            <span class="cd-label">Days</span>
+          </div>
+          <div class="cd-unit">
+            <div class="cd-box"><span class="cd-num" id="cd-hours">٠٠</span></div>
+            <span class="cd-label">Hours</span>
+          </div>
+          <div class="cd-unit">
+            <div class="cd-box"><span class="cd-num" id="cd-mins">٠٠</span></div>
+            <span class="cd-label">Minutes</span>
+          </div>
+          <div class="cd-unit">
+            <div class="cd-box"><span class="cd-num" id="cd-secs">٠٠</span></div>
+            <span class="cd-label">Seconds</span>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- COUNTDOWN -->
-  <section class="countdown-section" style="position:relative;width:100%;overflow:hidden;">
-      <img class="countdown-bg" style="width:100%;display:block;" src="https://almannaija-tech.github.io/jassemwedd/countdown.png" alt="countdown" />
-      <!-- Each number positioned independently - adjust top/left to fine-tune -->
-    <span class="cd-num" id="cd-days"   style="top:48%; left:13%;">00</span>
-    <span class="cd-num" id="cd-hours"  style="top:48%; left:37%;">00</span>
-    <span class="cd-num" id="cd-mins"   style="top:48%; left:61%;">00</span>
-    <span class="cd-num" id="cd-secs"   style="top:48%; left:85%;">00</span>
-  </section>
+    <!-- SCHEDULE -->
+    <section class="section schedule-section" style="background:var(--brown-dark);">
+        <h2 class="section-title reveal" style="color:var(--cream);">برنامج الحفل</h2>
+        <div class="timeline reveal">
+            <div class="timeline-item">
+                <div class="timeline-time">٨:٠٠</div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-event">استقبال الضيوف</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">٩:٣٠</div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-event">العشاء</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">١٠:٣٠</div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-event">دخول العروس</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">١١:٣٠</div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-event">دخول العريس</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">١٢:٠٠</div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-event">خروج العروسين ✨</div>
+            </div>
+        </div>
+    </section>
 
-  <!-- SCHEDULE -->
-  <section class="section schedule-section">
-    <h2 class="section-title reveal">برنامج الحفل</h2>
-    <div class="timeline reveal">
-      <div class="timeline-item">
-        <div class="timeline-time">٨:٠٠</div>
-        <div class="timeline-dot"></div>
-        <div class="timeline-event">استقبال الضيوف</div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-time">٩:٣٠</div>
-        <div class="timeline-dot"></div>
-        <div class="timeline-event">العشاء</div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-time">١٠:٣٠</div>
-        <div class="timeline-dot"></div>
-        <div class="timeline-event">دخول العروس</div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-time">١١:٣٠</div>
-        <div class="timeline-dot"></div>
-        <div class="timeline-event">دخول العريس</div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-time">١٢:٠٠</div>
-        <div class="timeline-dot"></div>
-        <div class="timeline-event">خروج العروسين ✨</div>
-      </div>
-    </div>
-  </section>
+    <!-- LOCATION -->
+    <section class="location-section">
+        <h2 class="section-title reveal">الموقع</h2>
+        <img class="location-img reveal"
+             src="https://almannaija-tech.github.io/jassemwedd/location.jpeg"
+             alt="الموقع" />    <a class="map-btn reveal"
+                                   href="https://maps.google.com/?q=Rixos+Katara+Palace+Doha+Qatar"
+                                   target="_blank" rel="noopener">
+            📍 فتح الموقع في الخرائط
+        </a>
+    </section>
 
-  <!-- LOCATION -->
-  <section class="location-section">
-    <h2 class="section-title reveal">الموقع</h2>
-    <img class="location-img reveal"
-         src="https://almannaija-tech.github.io/jassemwedd/location.jpeg"
-         alt="الموقع" />    <a class="map-btn reveal"
-       href="https://maps.google.com/?q=Rixos+Katara+Palace+Doha+Qatar"
-       target="_blank" rel="noopener">
-      📍 فتح الموقع في الخرائط
-    </a>
-  </section>
+    <!-- DRESS CODE -->
+    <section class="dresscode-section">
+        <h2 class="section-title reveal">كود اللبس</h2>
+        <div class="reveal">
+            <span class="dresscode-icon">👗</span>
+            <p class="dresscode-text">لبس عرس<br>نتشرف بحضوركم بما يليق بمناسبة زفافنا السعيدة</p>
+        </div>
+    </section>
 
-  <!-- DRESS CODE -->
-  <section class="dresscode-section">
-    <h2 class="section-title reveal">كود اللبس</h2>
-    <div class="reveal">
-      <span class="dresscode-icon">👗</span>
-      <p class="dresscode-text">لبس عرس<br>نتشرف بحضوركم بما يليق بمناسبة زفافنا السعيدة</p>
-    </div>
-  </section>
+    <!-- RSVP -->
+    <section class="rsvp-section">
+        <h2 class="section-title reveal">تأكيد الحضور</h2>
+        <div class="reveal" style="text-align:center;">
+            <a href="https://rsvp.link/hw9bk" target="_blank" class="map-btn" style="display:inline-flex; font-size:clamp(1rem,3vw,1.2rem);">
+                يرجى الضغط هنا لتأكيد الحضور ✓
+            </a>
+        </div>
+    </section>
 
-  <!-- RSVP -->
-  <section class="rsvp-section">
-    <h2 class="section-title reveal">تأكيد الحضور</h2>
-    <div class="rsvp-form reveal">
-      <input type="text" class="rsvp-input" id="rsvp-name" placeholder="يرجى كتابة الاسم الثلاثي لتأكيد الحضور" maxlength="80"/>
-      <button class="rsvp-btn" onclick="submitRSVP()" id="rsvp-btn">تأكيد الحضور ✓</button>
-      <div class="rsvp-success" id="rsvp-success">
-        ✅ تم تأكيد حضورك<br>
-        <span style="font-size:0.9em;opacity:0.8">شكراً لكم — نراكم في ليلة لا تُنسى 💍</span>
-      </div>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <p>جاسم والجوهرة • ١٢ رجب ١٤٤٧هـ</p>
-  </footer>
+    <footer class="footer">
+        <p>جاسم والجوهرة • ١٢ رجب ١٤٤٧هـ</p>
+    </footer>
 </div>
 
 <script>
@@ -324,22 +281,6 @@
       document.getElementById('cd-secs').textContent  = toAr((diff%60000)/1000);
     }
     update(); setInterval(update,1000);
-  }
-
-  async function submitRSVP() {
-    const name = document.getElementById('rsvp-name').value.trim();
-    if (!name) { document.getElementById('rsvp-name').focus(); return; }
-    const btn = document.getElementById('rsvp-btn');
-    btn.disabled=true; btn.textContent='جاري الإرسال...';
-    try {
-      await fetch('https://discord.com/api/webhooks/1506240280280432650/JhC9fhiyOqGPtD7ajNODEiyqjUQ7CZv8MuCmgzslWDzSWTmLpcEbKOaheb_wv9J9Ylmn',{
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({content:`✅ **تأكيد حضور!**\n👤 **${name}**\n💍 جاسم والجوهرة • ١٢/٦/٢٠٢٦`})
-      });
-    } catch(e) {}
-    document.getElementById('rsvp-name').style.display='none';
-    btn.style.display='none';
-    document.getElementById('rsvp-success').style.display='block';
   }
 
   function initReveal() {
